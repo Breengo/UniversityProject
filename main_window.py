@@ -1,11 +1,13 @@
 import tkinter as tk
 import tkinter.messagebox as mb
 from quain_func import *
+from save_result import *
 
 class MainWindow():
     def main_window(self,root):
 
         func = Quain()
+        save = ResultSaver()
 
         def hide():
             m_window.withdraw()
@@ -33,7 +35,13 @@ class MainWindow():
             lbl_origl.config(text = add_vars(lbl_origl.cget("text")))
 
         def qcall():
-            lbl_solve.config(text = func.solving(lbl_origl.cget("text")))
+            result = save.save(lbl_origl.cget("text"))
+            if(result):
+                lbl_solve.config(text = result)
+            else:
+                lbl_solve.config(text=func.solving(lbl_origl.cget("text")))
+
+
 
         def clear():
             lbl_origl.config(text="")
